@@ -1,0 +1,1027 @@
+diff -Nurp u-boot-2009.08/board/freescale/mx51_bbg/mx51_bbg.c u-boot-2009.08-patch/board/freescale/mx51_bbg/mx51_bbg.c
+--- u-boot-2009.08/board/freescale/mx51_bbg/mx51_bbg.c	2010-12-14 14:27:08.496637886 +0100
++++ u-boot-2009.08-patch/board/freescale/mx51_bbg/mx51_bbg.c	2010-12-06 08:32:45.893838442 +0100
+@@ -407,85 +407,85 @@ int fec_get_mac_addr(unsigned char *mac)
+ static void setup_fec(void)
+ {
+ 	/*FEC_MDIO*/
+-	writel(0x3, IOMUXC_BASE_ADDR + 0x0D4);
++	writel(0x3, IOMUXC_BASE_ADDR + 0x0D4);	//EIM_EB2
+ 	writel(0x1FD, IOMUXC_BASE_ADDR + 0x0468);
+ 	writel(0x0, IOMUXC_BASE_ADDR + 0x0954);
+ 
+ 	/*FEC_MDC*/
+-	writel(0x2, IOMUXC_BASE_ADDR + 0x13C);
++	writel(0x2, IOMUXC_BASE_ADDR + 0x13C);	//NANDF_CS3
+ 	writel(0x2004, IOMUXC_BASE_ADDR + 0x0524);
+ 
+ 	/* FEC RDATA[3] */
+-	writel(0x3, IOMUXC_BASE_ADDR + 0x0EC);
++	writel(0x3, IOMUXC_BASE_ADDR + 0x0EC);	//EIM_CS3
+ 	writel(0x180, IOMUXC_BASE_ADDR + 0x0480);
+ 	writel(0x0, IOMUXC_BASE_ADDR + 0x0964);
+ 
+ 	/* FEC RDATA[2] */
+-	writel(0x3, IOMUXC_BASE_ADDR + 0x0E8);
+-	writel(0x180, IOMUXC_BASE_ADDR + 0x047C);
+-	writel(0x0, IOMUXC_BASE_ADDR + 0x0960);
++	writel(0x2, IOMUXC_BASE_ADDR + 0x0350);	//DI_GP4
++	writel(0x180, IOMUXC_BASE_ADDR + 0x0758);
++	writel(0x1, IOMUXC_BASE_ADDR + 0x0960);
+ 
+ 	/* FEC RDATA[1] */
+-	writel(0x3, IOMUXC_BASE_ADDR + 0x0d8);
+-	writel(0x180, IOMUXC_BASE_ADDR + 0x046C);
+-	writel(0x0, IOMUXC_BASE_ADDR + 0x095C);
++	writel(0x2, IOMUXC_BASE_ADDR + 0x034C);	//DI2_DISP_CLK
++	writel(0x180, IOMUXC_BASE_ADDR + 0x0754);
++	writel(0x1, IOMUXC_BASE_ADDR + 0x095C);
+ 
+ 	/* FEC RDATA[0] */
+-	writel(0x2, IOMUXC_BASE_ADDR + 0x016C);
+-	writel(0x2180, IOMUXC_BASE_ADDR + 0x0554);
+-	writel(0x0, IOMUXC_BASE_ADDR + 0x0958);
++	writel(0x2, IOMUXC_BASE_ADDR + 0x038C);	//DISP2_DAT14
++	writel(0x0180, IOMUXC_BASE_ADDR + 0x0794);
++	writel(0x1, IOMUXC_BASE_ADDR + 0x0958);
+ 
+ 	/* FEC TDATA[3] */
+-	writel(0x2, IOMUXC_BASE_ADDR + 0x148);
++	writel(0x2, IOMUXC_BASE_ADDR + 0x148);	//NANDF_CS6
+ 	writel(0x2004, IOMUXC_BASE_ADDR + 0x0530);
+ 
+ 	/* FEC TDATA[2] */
+-	writel(0x2, IOMUXC_BASE_ADDR + 0x144);
++	writel(0x2, IOMUXC_BASE_ADDR + 0x144);	//NANDF_CS5
+ 	writel(0x2004, IOMUXC_BASE_ADDR + 0x052C);
+ 
+ 	/* FEC TDATA[1] */
+-	writel(0x2, IOMUXC_BASE_ADDR + 0x140);
++	writel(0x2, IOMUXC_BASE_ADDR + 0x140);	//NANDF_CS4
+ 	writel(0x2004, IOMUXC_BASE_ADDR + 0x0528);
+ 
+ 	/* FEC TDATA[0] */
+-	writel(0x2, IOMUXC_BASE_ADDR + 0x0170);
+-	writel(0x2004, IOMUXC_BASE_ADDR + 0x0558);
++	writel(0x2, IOMUXC_BASE_ADDR + 0x0390);	//DISP2_DAT15
++	writel(0x0004, IOMUXC_BASE_ADDR + 0x0798);
+ 
+ 	/* FEC TX_EN */
+-	writel(0x1, IOMUXC_BASE_ADDR + 0x014C);
+-	writel(0x2004, IOMUXC_BASE_ADDR + 0x0534);
++	writel(0x2, IOMUXC_BASE_ADDR + 0x0378);	//DISP2_DAT9
++	writel(0x0004, IOMUXC_BASE_ADDR + 0x0780);
+ 
+ 	/* FEC TX_ER */
+-	writel(0x2, IOMUXC_BASE_ADDR + 0x0138);
++	writel(0x2, IOMUXC_BASE_ADDR + 0x0138);	//NANDF_CS2
+ 	writel(0x2004, IOMUXC_BASE_ADDR + 0x0520);
+ 
+ 	/* FEC TX_CLK */
+-	writel(0x1, IOMUXC_BASE_ADDR + 0x0150);
+-	writel(0x2180, IOMUXC_BASE_ADDR + 0x0538);
+-	writel(0x0, IOMUXC_BASE_ADDR + 0x0974);
++	writel(0x2, IOMUXC_BASE_ADDR + 0x0388);	//DISP2_DAT13
++	writel(0x0180, IOMUXC_BASE_ADDR + 0x0790);
++	writel(0x1, IOMUXC_BASE_ADDR + 0x0974);
+ 
+ 	/* FEC COL */
+-	writel(0x1, IOMUXC_BASE_ADDR + 0x0124);
++	writel(0x1, IOMUXC_BASE_ADDR + 0x0124);	//NANDF_RB2
+ 	writel(0x2180, IOMUXC_BASE_ADDR + 0x0500);
+ 	writel(0x0, IOMUXC_BASE_ADDR + 0x094c);
+ 
+ 	/* FEC RX_CLK */
+-	writel(0x1, IOMUXC_BASE_ADDR + 0x0128);
++	writel(0x1, IOMUXC_BASE_ADDR + 0x0128);	//NANDF_RB3
+ 	writel(0x2180, IOMUXC_BASE_ADDR + 0x0504);
+ 	writel(0x0, IOMUXC_BASE_ADDR + 0x0968);
+ 
+ 	/* FEC CRS */
+-	writel(0x3, IOMUXC_BASE_ADDR + 0x0f4);
++	writel(0x3, IOMUXC_BASE_ADDR + 0x0f4);	//EIM_CS5
+ 	writel(0x180, IOMUXC_BASE_ADDR + 0x0488);
+ 	writel(0x0, IOMUXC_BASE_ADDR + 0x0950);
+ 
+ 	/* FEC RX_ER */
+-	writel(0x3, IOMUXC_BASE_ADDR + 0x0f0);
++	writel(0x3, IOMUXC_BASE_ADDR + 0x0f0);	//EIM_CS4
+ 	writel(0x180, IOMUXC_BASE_ADDR + 0x0484);
+ 	writel(0x0, IOMUXC_BASE_ADDR + 0x0970);
+ 
+ 	/* FEC RX_DV */
+-	writel(0x2, IOMUXC_BASE_ADDR + 0x164);
++	writel(0x2, IOMUXC_BASE_ADDR + 0x164);	//NANDF_D11
+ 	writel(0x2180, IOMUXC_BASE_ADDR + 0x054C);
+ 	writel(0x0, IOMUXC_BASE_ADDR + 0x096C);
+ }
+@@ -704,9 +704,10 @@ int board_eth_init(bd_t *bis)
+ 
+ #ifdef CONFIG_CMD_MMC
+ 
+-struct fsl_esdhc_cfg esdhc_cfg[2] = {
++struct fsl_esdhc_cfg esdhc_cfg[3] = {
+ 	{MMC_SDHC1_BASE_ADDR, 1, 1},
+ 	{MMC_SDHC2_BASE_ADDR, 1, 1},
++	{MMC_SDHC3_BASE_ADDR, 1, 1},				// Oliver 20101203
+ };
+ 
+ #ifdef CONFIG_DYNAMIC_MMC_DEVNO
+@@ -803,6 +804,54 @@ int esdhc_gpio_init(bd_t *bis)
+ 					PAD_CTL_DRV_MAX | PAD_CTL_22K_PU |
+ 					PAD_CTL_SRE_FAST);
+ 			break;
++	case 2:
++			mxc_request_iomux(MX51_PIN_NANDF_RDY_INT, IOMUX_CONFIG_ALT5 | IOMUX_CONFIG_SION);
++			mxc_iomux_set_pad(MX51_PIN_NANDF_RDY_INT,
++						PAD_CTL_DRV_VOT_HIGH | PAD_CTL_DRV_MAX | PAD_CTL_22K_PU | PAD_CTL_SRE_FAST);
++			/* SD3_CLK */
++			mxc_request_iomux(MX51_PIN_NANDF_CS7, IOMUX_CONFIG_ALT5);
++			mxc_iomux_set_pad(MX51_PIN_NANDF_CS7,
++						PAD_CTL_DRV_VOT_HIGH | PAD_CTL_DRV_MAX | PAD_CTL_22K_PU | PAD_CTL_SRE_FAST);
++			/* SD3_DAT0 */
++			mxc_request_iomux(MX51_PIN_NANDF_D8, IOMUX_CONFIG_ALT5);
++			mxc_iomux_set_pad(MX51_PIN_NANDF_D8,
++						PAD_CTL_DRV_VOT_HIGH | PAD_CTL_DRV_MAX | PAD_CTL_22K_PU | PAD_CTL_SRE_FAST);
++			mxc_iomux_set_input(MUX_IN_ESDHC3_IPP_DAT0_IN_SELECT_INPUT, INPUT_CTL_PATH1);
++			/* SD3_DAT1 */
++			mxc_request_iomux(MX51_PIN_NANDF_D9, IOMUX_CONFIG_ALT5);
++			mxc_iomux_set_pad(MX51_PIN_NANDF_D9,
++						PAD_CTL_DRV_VOT_HIGH | PAD_CTL_DRV_MAX | PAD_CTL_22K_PU | PAD_CTL_SRE_FAST);
++			mxc_iomux_set_input(MUX_IN_ESDHC3_IPP_DAT1_IN_SELECT_INPUT, INPUT_CTL_PATH1);
++			/* SD3_DAT2 */
++			mxc_request_iomux(MX51_PIN_NANDF_D10, IOMUX_CONFIG_ALT5);
++			mxc_iomux_set_pad(MX51_PIN_NANDF_D10,
++						PAD_CTL_DRV_VOT_HIGH | PAD_CTL_DRV_MAX | PAD_CTL_22K_PU | PAD_CTL_SRE_FAST);
++			mxc_iomux_set_input(MUX_IN_ESDHC3_IPP_DAT2_IN_SELECT_INPUT, INPUT_CTL_PATH1);
++
++			/* SD3_DAT3 */
++			mxc_request_iomux(MX51_PIN_NANDF_RB0, IOMUX_CONFIG_ALT2);
++			mxc_iomux_set_pad(MX51_PIN_NANDF_RB0,
++						PAD_CTL_DRV_VOT_HIGH | PAD_CTL_DRV_MAX | PAD_CTL_22K_PU | PAD_CTL_SRE_FAST);
++			mxc_iomux_set_input(MUX_IN_ESDHC3_IPP_DAT3_IN_SELECT_INPUT, INPUT_CTL_PATH0);
++
++			/* SD3_DAT4 */
++			mxc_request_iomux(MX51_PIN_NANDF_D12, IOMUX_CONFIG_ALT5);
++			mxc_iomux_set_pad(MX51_PIN_NANDF_D12,
++						PAD_CTL_DRV_VOT_HIGH | PAD_CTL_DRV_MAX | PAD_CTL_22K_PU | PAD_CTL_SRE_FAST);
++			/* SD3_DAT5 */
++			mxc_request_iomux(MX51_PIN_NANDF_D13, IOMUX_CONFIG_ALT5);
++			mxc_iomux_set_pad(MX51_PIN_NANDF_D13,
++						PAD_CTL_DRV_VOT_HIGH | PAD_CTL_DRV_MAX | PAD_CTL_22K_PU | PAD_CTL_SRE_FAST);
++			/* SD3_DAT6 */
++			mxc_request_iomux(MX51_PIN_NANDF_D14, IOMUX_CONFIG_ALT5);
++			mxc_iomux_set_pad(MX51_PIN_NANDF_D14,
++						PAD_CTL_DRV_VOT_HIGH | PAD_CTL_DRV_MAX | PAD_CTL_22K_PU | PAD_CTL_SRE_FAST);
++			/* SD3_DAT7 */
++			mxc_request_iomux(MX51_PIN_NANDF_D15, IOMUX_CONFIG_ALT5);
++			mxc_iomux_set_pad(MX51_PIN_NANDF_D15,
++				PAD_CTL_DRV_VOT_HIGH | PAD_CTL_DRV_MAX | PAD_CTL_22K_PU | PAD_CTL_SRE_FAST);
++
++			break;
+ 		default:
+ 			printf("Warning: you configured more ESDHC controller"
+ 				"(%d) as supported by the board(2)\n",
+@@ -844,6 +893,38 @@ int setup_mxc_kpd(void)
+ }
+ #endif
+ 
++#ifdef CONFIG_GET_EMEI_ADDR_FROM_IIM
++
++int emei_get_addr(unsigned char *emei)
++{
++	unsigned char emeival[8];
++	u32 *iim1_emei_base =
++		(u32 *)(IIM_BASE_ADDR + IIM_BANK_AREA_0_OFFSET +
++			CONFIG_IIM_EMEI_ADDR_OFFSET);
++	int i;
++
++	for (i = 0; i < 8; ++i, ++iim1_emei_base)
++		emei[i] = (u8)readl(iim1_emei_base);
++
++	return 0;
++}
++#endif
++
++static void lvds_backlight_off(void)				// Oliver 20101203
++{
++	unsigned int reg;
++
++	mxc_request_iomux(MX51_PIN_GPIO1_2, IOMUX_CONFIG_ALT0);
++
++	reg = readl(GPIO1_BASE_ADDR + 0x0);
++	reg &= 0xFFFB;
++	writel(reg, GPIO1_BASE_ADDR + 0x0);
++
++	reg = readl(GPIO1_BASE_ADDR + 0x4);
++	reg |= 0x0004;  /* configure GPIO lines as output */
++	writel(reg, GPIO1_BASE_ADDR + 0x4);
++}
++
+ int board_init(void)
+ {
+ #ifdef CONFIG_MFG
+@@ -862,7 +943,7 @@ int board_init(void)
+ 	gd->bd->bi_boot_params = PHYS_SDRAM_1 + 0x100;
+ 
+ 	setup_uart();
+-	setup_nfc();
++//	setup_nfc();						// Oliver 20101203
+ 	setup_expio();
+ #ifdef CONFIG_MXC_FEC
+ 	setup_fec();
+@@ -976,7 +1057,7 @@ int board_late_init(void)
+ 
+ int checkboard(void)
+ {
+-	printf("Board: MX51 BABBAGE ");
++	printf("Board: Hercules ecafe ");
+ 
+ 	if (is_soc_rev(CHIP_REV_3_0) == 0) {
+ 		printf("3.0 [");
+diff -Nurp u-boot-2009.08/drivers/mtd/spi/imx_spi_nor_mxic.c u-boot-2009.08-patch/drivers/mtd/spi/imx_spi_nor_mxic.c
+--- u-boot-2009.08/drivers/mtd/spi/imx_spi_nor_mxic.c	1970-01-01 01:00:00.000000000 +0100
++++ u-boot-2009.08-patch/drivers/mtd/spi/imx_spi_nor_mxic.c	2010-09-13 05:41:28.000000000 +0200
+@@ -0,0 +1,665 @@
++/*
++ * (C) Copyright 2008-2010 Freescale Semiconductor, Inc.
++ *
++ * See file CREDITS for list of people who contributed to this
++ * project.
++ *
++ * This program is free software; you can redistribute it and/or
++ * modify it under the terms of the GNU General Public License as
++ * published by the Free Software Foundation; either version 2 of
++ * the License, or (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program; if not, write to the Free Software
++ * Foundation, Inc., 59 Temple Place, Suite 330, Boston,
++ * MA 02111-1307 USA
++ */
++
++#include <config.h>
++#include <common.h>
++#include <spi.h>
++#include <spi_flash.h>
++#include <asm/errno.h>
++#include <linux/types.h>
++#include <malloc.h>
++
++#include <imx_spi.h>
++#include <imx_spi_nor.h>
++
++static u8 g_tx_buf[256];
++static u8 g_rx_buf[256];
++
++#define WRITE_ENABLE(a)			 spi_nor_cmd_1byte(a, WREN)
++#define WRITE_DISABLE(a)		 spi_nor_cmd_1byte(a, WRDI)
++#define ENABLE_WRITE_STATUS(a)	 	 WRITE_ENABLE(a)
++
++struct imx_spi_flash_params {
++	u8		idcode1;
++	u32		block_size;
++	u32		block_count;
++	u32		device_size;
++	const char	*name;
++};
++
++struct imx_spi_flash {
++	const struct imx_spi_flash_params *params;
++	struct spi_flash flash;
++};
++
++static inline struct imx_spi_flash *
++to_imx_spi_flash(struct spi_flash *flash)
++{
++	return container_of(flash, struct imx_spi_flash, flash);
++}
++
++static const struct imx_spi_flash_params imx_spi_flash_table[] = {
++	{
++		.idcode1		= 0x20,
++		.block_size		= SZ_64K,
++		.block_count		= 64,
++		.device_size		= SZ_64K * 64,
++		.name			= "MX25L3206E - 4MB",
++	},
++};
++
++static s32 spi_nor_flash_query(struct spi_flash *flash, void* data)
++{
++	u8 au8Tmp[4] = { 0 };
++	u8 *pData = (u8 *)data;
++
++	g_tx_buf[3] = JEDEC_ID;
++
++	if (spi_xfer(flash->spi, (4 << 3), g_tx_buf, au8Tmp,
++				SPI_XFER_BEGIN | SPI_XFER_END)) {
++		return -1;
++	}
++
++	printf("JEDEC ID: 0x%02x:0x%02x:0x%02x\n",
++			au8Tmp[2], au8Tmp[1], au8Tmp[0]);
++
++	pData[0] = au8Tmp[2];
++	pData[1] = au8Tmp[1];
++	pData[2] = au8Tmp[0];
++
++	return 0;
++}
++
++static s32 spi_nor_cmd_1byte(struct spi_flash *flash, u8 cmd)
++{
++	g_tx_buf[0] = cmd;
++
++	if (spi_xfer(flash->spi, (1 << 3), g_tx_buf, g_rx_buf,
++			SPI_XFER_BEGIN | SPI_XFER_END) != 0) {
++		printf("Error: %s(): %d\n", __func__, __LINE__);
++		return -1;
++	}
++	return 0;
++}
++
++static s32 spi_nor_status(struct spi_flash *flash)
++{
++	g_tx_buf[1] = RDSR;
++
++	if (spi_xfer(flash->spi, 2 << 3, g_tx_buf, g_rx_buf,
++			SPI_XFER_BEGIN | SPI_XFER_END) != 0) {
++		printf("Error: %s(): %d\n", __func__, __LINE__);
++		return 0;
++	}
++	return g_rx_buf[0];
++}
++
++static int spi_nor_program_1byte(struct spi_flash *flash,
++		u8 data, void *addr)
++{
++	u32 addr_val = (u32)addr;
++
++	/* need to do write-enable command */
++	if (WRITE_ENABLE(flash) != 0) {
++		printf("Error : %d\n", __LINE__);
++		return -1;
++	}
++	g_tx_buf[0] = BYTE_PROG; /* need to skip bytes 1, 2, 3 */
++	g_tx_buf[4] = data;
++	g_tx_buf[5] = addr_val & 0xFF;
++	g_tx_buf[6] = (addr_val >> 8) & 0xFF;
++	g_tx_buf[7] = (addr_val >> 16) & 0xFF;
++
++	debug("0x%x: 0x%x\n", *(u32 *)g_tx_buf, *(u32 *)(g_tx_buf + 4));
++	debug("addr=0x%x\n", addr_val);
++
++	if (spi_xfer(flash->spi, 5 << 3, g_tx_buf, g_rx_buf,
++			SPI_XFER_BEGIN | SPI_XFER_END) != 0) {
++		printf("Error: %s(%d): failed\n", __FILE__, __LINE__);
++		return -1;
++	}
++
++	while (spi_nor_status(flash) & RDSR_BUSY)
++		;
++
++	return 0;
++}
++
++/*!
++ * Write 'val' to flash WRSR (write status register)
++ */
++static int spi_nor_write_status(struct spi_flash *flash, u8 val)
++{
++	g_tx_buf[0] = val;
++	g_tx_buf[1] = WRSR;
++
++	if (spi_xfer(flash->spi, 2 << 3, g_tx_buf, g_rx_buf,
++			SPI_XFER_BEGIN | SPI_XFER_END) != 0) {
++		printf("Error: %s(): %d\n", __func__, __LINE__);
++		return -1;
++	}
++	return 0;
++}
++
++/*!
++ * Erase a block_size data from block_addr offset in the flash
++ */
++static int spi_nor_erase_block(struct spi_flash *flash,
++				void *block_addr, u32 block_size)
++{
++	u32 *cmd = (u32 *)g_tx_buf;
++	u32 addr = (u32) block_addr;
++
++	if (block_size != SZ_64K &&
++		block_size != SZ_32K &&
++		block_size != SZ_4K) {
++		printf("Error - block_size is not "
++				"4kB, 32kB or 64kB: 0x%x\n",
++				block_size);
++		return -1;
++	}
++
++	if ((addr & (block_size - 1)) != 0) {
++		printf("Error - block_addr is not "
++				"4kB, 32kB or 64kB aligned: %p\n",
++				block_addr);
++		return -1;
++	}
++
++	if (ENABLE_WRITE_STATUS(flash) != 0 ||
++			spi_nor_write_status(flash, 0) != 0) {
++		printf("Error: %s: %d\n", __func__, __LINE__);
++		return -1;
++	}
++
++	/* need to do write-enable command */
++	if (WRITE_ENABLE(flash) != 0) {
++		printf("Error : %d\n", __LINE__);
++		return -1;
++	}
++
++	if (block_size == SZ_64K)
++		*cmd = (ERASE_64K << 24) | (addr & 0x00FFFFFF);
++	else if (block_size == SZ_32K)
++		*cmd = (ERASE_32K << 24) | (addr & 0x00FFFFFF);
++	else if (block_size == SZ_4K)
++		*cmd = (ERASE_4K << 24) | (addr & 0x00FFFFFF);
++
++	/* now do the block erase */
++	if (spi_xfer(flash->spi, 4 << 3, g_tx_buf, g_rx_buf,
++			SPI_XFER_BEGIN | SPI_XFER_END) != 0) {
++		return -1;
++	}
++
++	while (spi_nor_status(flash) & RDSR_BUSY)
++		;
++
++	return 0;
++}
++
++static int spi_nor_flash_read(struct spi_flash *flash, u32 offset,
++		size_t len, void *buf)
++{
++	struct imx_spi_flash *imx_sf = to_imx_spi_flash(flash);
++	u32 *cmd = (u32 *)g_tx_buf;
++	u32 max_rx_sz = (MAX_SPI_BYTES) - 4;
++	u8 *d_buf = (u8 *)buf;
++	u8 *s_buf;
++	s32 s32remain_size = len;
++	int i;
++
++	if (!(flash->spi))
++		return -1;
++
++	printf("Reading SPI NOR flash 0x%x [0x%x bytes] -> ram 0x%p\n",
++		offset, len, buf);
++	debug("%s(from flash=0x%08x to ram=%p len=0x%x)\n",
++		__func__,
++		offset, buf, len);
++
++	if (len == 0)
++		return 0;
++
++	*cmd = (READ << 24) | ((u32)offset & 0x00FFFFFF);
++
++	for (; s32remain_size > 0; s32remain_size -= max_rx_sz, *cmd += max_rx_sz) {
++		debug("Addr:0x%p=>Offset:0x%08x, %d bytes transferred\n",
++				d_buf,
++				(*cmd & 0x00FFFFFF),
++				(len - s32remain_size));
++		debug("%d%% completed\n", ((len - s32remain_size) * 100 / len));
++
++		if (s32remain_size < max_rx_sz) {
++			debug("100%% completed\n");
++
++			if (spi_xfer(flash->spi, (s32remain_size + 4) << 3,
++				g_tx_buf, g_rx_buf,
++				SPI_XFER_BEGIN | SPI_XFER_END) != 0) {
++				printf("Error: %s(%d): failed\n", __FILE__, __LINE__);
++				return -1;
++			}
++			/* throw away 4 bytes (5th received bytes is real) */
++			s_buf = g_rx_buf + 4;
++
++			/* now adjust the endianness */
++			for (i = s32remain_size; i >= 0; i -= 4, s_buf += 4) {
++				if (i < 4) {
++					if (i == 1) {
++						*d_buf = s_buf[0];
++					} else if (i == 2) {
++						*d_buf++ = s_buf[1];
++						*d_buf++ = s_buf[0];
++					} else if (i == 3) {
++						*d_buf++ = s_buf[2];
++						*d_buf++ = s_buf[1];
++						*d_buf++ = s_buf[0];
++					}
++					printf("SUCCESS\n\n");
++					return 0;
++				}
++				/* copy 4 bytes */
++				*d_buf++ = s_buf[3];
++				*d_buf++ = s_buf[2];
++				*d_buf++ = s_buf[1];
++				*d_buf++ = s_buf[0];
++			}
++		}
++
++		/* now grab max_rx_sz data (+4 is
++		*needed due to 4-throw away bytes */
++		if (spi_xfer(flash->spi, (max_rx_sz + 4) << 3,
++			g_tx_buf, g_rx_buf, SPI_XFER_BEGIN | SPI_XFER_END) != 0) {
++			printf("Error: %s(%d): failed\n", __FILE__, __LINE__);
++			return -1;
++		}
++		/* throw away 4 bytes (5th received bytes is real) */
++		s_buf = g_rx_buf + 4;
++		/* now adjust the endianness */
++		for (i = 0; i < max_rx_sz; i += 4, s_buf += 4) {
++			*d_buf++ = s_buf[3];
++			*d_buf++ = s_buf[2];
++			*d_buf++ = s_buf[1];
++			*d_buf++ = s_buf[0];
++		}
++
++		if ((s32remain_size % imx_sf->params->block_size) == 0)
++			printf(".");
++	}
++	printf("SUCCESS\n\n");
++
++	return -1;
++}
++
++#if 0
++static int spi_nor_flash_write(struct spi_flash *flash, u32 offset,
++		size_t len, const void *buf)
++{
++	struct imx_spi_flash *imx_sf = to_imx_spi_flash(flash);
++	u32 d_addr = offset;
++	u8 *s_buf = (u8 *)buf;
++	s32 s32remain_size = len;
++
++	if (!(flash->spi))
++		return -1;
++
++	if (len == 0)
++		return 0;
++
++	printf("Writing SPI NOR flash 0x%x [0x%x bytes] <- ram 0x%p\n",
++		offset, len, buf);
++	debug("%s(flash addr=0x%08x, ram=%p, len=0x%x)\n",
++			__func__, offset, buf, len);
++
++	if (ENABLE_WRITE_STATUS(flash) != 0 ||
++			spi_nor_write_status(flash, 0) != 0) {
++		printf("Error: %s: %d\n", __func__, __LINE__);
++		return -1;
++	}
++
++	if ((d_addr & 1) != 0) {
++		/* program 1st byte */
++		if (spi_nor_program_1byte(flash, s_buf[0],
++					(void *)d_addr) != 0) {
++			printf("Error: %s(%d)\n", __func__, __LINE__);
++			return -1;
++		}
++		if (--s32remain_size == 0)
++			return 0;
++		d_addr++;
++		s_buf++;
++	}
++
++	/* need to do write-enable command */
++	if (WRITE_ENABLE(flash) != 0) {
++		printf("Error : %d\n", __LINE__);
++		return -1;
++	}
++
++	/*
++	These two bytes write will be copied to txfifo first with
++	g_tx_buf[1] being shifted out and followed by g_tx_buf[0].
++	The reason for this is we will specify burst len=6. So SPI will
++	do this kind of data movement.
++	*/
++	g_tx_buf[0] = d_addr >> 16;
++	g_tx_buf[1] = AAI_PROG;    /* need to skip bytes 1, 2 */
++	/* byte shifted order is: 7, 6, 5, 4 */
++	g_tx_buf[4] = s_buf[1];
++	g_tx_buf[5] = s_buf[0];
++	g_tx_buf[6] = d_addr;
++	g_tx_buf[7] = d_addr >> 8;
++	if (spi_xfer(flash->spi, 6 << 3, g_tx_buf, g_rx_buf,
++			SPI_XFER_BEGIN | SPI_XFER_END) != 0) {
++		printf("Error: %s(%d): failed\n",
++				__FILE__, __LINE__);
++		return -1;
++	}
++
++	while (spi_nor_status(flash) & RDSR_BUSY)
++		;
++
++	for (d_addr += 2, s_buf += 2, s32remain_size -= 2;
++		s32remain_size > 1;
++		d_addr += 2, s_buf += 2, s32remain_size -= 2) {
++		debug("%d%% transferred\n",
++			((len - s32remain_size) * 100 / len));
++		/* byte shifted order is: 2,1,0 */
++		g_tx_buf[2] = AAI_PROG;
++		g_tx_buf[1] = s_buf[0];
++		g_tx_buf[0] = s_buf[1];
++
++		if (spi_xfer(flash->spi, 3 << 3, g_tx_buf, g_rx_buf,
++				SPI_XFER_BEGIN | SPI_XFER_END) != 0) {
++			printf("Error: %s(%d): failed\n",
++					__FILE__, __LINE__);
++			return -1;
++		}
++
++		while (spi_nor_status(flash) & RDSR_BUSY)
++			;
++
++		if ((s32remain_size % imx_sf->params->block_size) == 0)
++			printf(".");
++	}
++	printf("SUCCESS\n\n");
++	debug("100%% transferred\n");
++
++	WRITE_DISABLE(flash);
++	while (spi_nor_status(flash) & RDSR_BUSY)
++		;
++
++	if (WRITE_ENABLE(flash) != 0) {
++		printf("Error : %d\n", __LINE__);
++		return -1;
++	}
++
++	if (len == 1) {
++		/* need to do write-enable command */
++		/* only 1 byte left */
++		if (spi_nor_program_1byte(flash, s_buf[0],
++					(void *)d_addr) != 0) {
++			printf("Error: %s(%d)\n",
++					__func__, __LINE__);
++			return -1;
++		}
++	}
++	return 0;
++}
++#else
++static int spi_nor_flash_write(struct spi_flash *flash, u32 offset,
++		size_t len, const void *buf)
++{
++//	struct imx_spi_flash *imx_sf = to_imx_spi_flash(flash);
++//	u32 d_addr = offset;
++	u8 *s_buf = (u8 *)buf;
++//	s32 s32remain_size = len;
++	s32 page_size = 256;
++	s32 iter_size = min(page_size + 4, MAX_SPI_BYTES);
++	u32 page_addr;
++	u32 byte_addr;
++	s32 chunk_len;
++	s32 actual;
++	int i, j, k;
++	u32 *p1;
++	u32 *p2;
++
++	if (!(flash->spi))
++		return -1;
++
++	if (len == 0)
++		return 0;
++
++	if (ENABLE_WRITE_STATUS(flash) != 0 ||
++		spi_nor_write_status(flash, 0) != 0) {
++		printf("Error: %s: %d\n", __func__, __LINE__);
++		return -1;
++	}
++
++	printf("Writing SPI NOR flash 0x%x [0x%x bytes] <- ram 0x%p\n",
++		offset, len, buf);
++	debug("%s(flash addr=0x%08x, ram=%p, len=0x%x)\n",
++			__func__, offset, buf, len);
++
++	if (ENABLE_WRITE_STATUS(flash) != 0 ||
++		spi_nor_write_status(flash, 0) != 0) {
++		printf("Error: %s: %d\n", __func__, __LINE__);
++		return -1;
++	}
++
++	page_addr = offset / page_size;
++	byte_addr = offset % page_size;
++
++	for (actual = 0; actual < len; actual += chunk_len) {
++		if (WRITE_ENABLE(flash) != 0) {
++			printf("Error : %d\n", __LINE__);
++			return -1;
++		}
++
++		chunk_len = min(min(len - actual, page_size - byte_addr), iter_size - 4);
++
++		g_tx_buf[3] = BYTE_PROG;
++		g_tx_buf[2] = page_addr >> 8;
++		g_tx_buf[1] = page_addr;
++		g_tx_buf[0] = byte_addr;
++
++		for(i = 0; i < chunk_len; i++)
++		{
++			j = i % 4;
++			k = i - j;
++			g_tx_buf[4 + k + 3 - j] = s_buf[actual + k + j];
++//			g_tx_buf[4 + k + 3 - j] = (actual + k + j) & 0xFF;
++//			printf("[%d]=%x, ", actual + k + j, s_buf[actual + k + j]);
++		}
++
++		debug
++//		printf	//joechen ++
++		    ("PP: 0x%p => cmd = { 0x%02x 0x%02x%02x%02x } chunk_len = %d\n",
++		     buf + actual, g_tx_buf[3], g_tx_buf[2], g_tx_buf[1], g_tx_buf[0], chunk_len);
++
++		if (spi_xfer(flash->spi, (chunk_len + 4) << 3,
++			g_tx_buf, g_rx_buf,
++			SPI_XFER_BEGIN | SPI_XFER_END) != 0) {
++			printf("Error: %s(%d): failed\n", __FILE__, __LINE__);
++			return -1;
++		}
++
++		do {
++			i = spi_nor_status(flash);
++			if ((!(i & STAT_BUSY)) && (!(i & RDSR_WEL)))
++				break;
++		} while(1);
++
++		byte_addr += chunk_len;
++		if (byte_addr >= page_size)
++		{
++			byte_addr = 0;
++			page_addr ++;
++		}
++	}
++
++	WRITE_DISABLE(flash);
++	while (spi_nor_status(flash) & RDSR_BUSY)
++		;
++
++	printf("SUCCESS\n\n");
++
++	return 0;
++}
++#endif
++
++static int spi_nor_flash_erase(struct spi_flash *flash, u32 offset,
++		size_t len)
++{
++	s32 s32remain_size = len;
++
++	if (!(flash->spi))
++		return -1;
++
++	printf("Erasing SPI NOR flash 0x%x [0x%x bytes]\n",
++		offset, len);
++
++	if ((len % SZ_4K) != 0 || len == 0) {
++		printf("Error: size (0x%x) is not integer multiples of 4kB(0x1000)\n",
++			len);
++		return -1;
++	}
++	if ((offset & (SZ_4K - 1)) != 0) {
++		printf("Error - addr is not 4kB(0x1000) aligned: 0x%08x\n",
++			offset);
++		return -1;
++	}
++	for (; s32remain_size > 0; s32remain_size -= SZ_4K, offset += SZ_4K) {
++		debug("Erasing 0x%08x, %d%% erased\n",
++				offset,
++				((len - s32remain_size) * 100 / len));
++		if (spi_nor_erase_block(flash,
++				(void *)offset, SZ_4K) != 0) {
++			printf("Error: spi_nor_flash_erase(): %d\n", __LINE__);
++			return -1;
++		}
++		printf(".");
++	}
++	printf("SUCCESS\n\n");
++	debug("100%% erased\n");
++	return 0;
++}
++
++struct spi_flash *spi_flash_probe(unsigned int bus, unsigned int cs, unsigned int max_hz, unsigned int spi_mode)
++{
++	struct spi_slave *spi = NULL;
++	const struct imx_spi_flash_params *params = NULL;
++	struct imx_spi_flash *imx_sf = NULL;
++	u8  idcode[4] = { 0 };
++	u32 i = 0;
++	s32 ret = 0;
++
++	if (CONFIG_SPI_FLASH_CS != cs) {
++		printf("Invalid cs for SPI NOR.\n");
++		return NULL;
++	}
++
++	spi = spi_setup_slave(bus, cs, max_hz, spi_mode);
++
++	if (!spi) {
++		debug("SF: Failed to set up slave\n");
++		return NULL;
++	}
++
++	ret = spi_claim_bus(spi);
++	if (ret) {
++		debug("SF: Failed to claim SPI bus: %d\n", ret);
++		goto err_claim_bus;
++	}
++
++	imx_sf = (struct imx_spi_flash *)malloc(sizeof(struct imx_spi_flash));
++
++	if (!imx_sf) {
++		debug("SF: Failed to allocate memory\n");
++		spi_free_slave(spi);
++		return NULL;
++	}
++
++	imx_sf->flash.spi = spi;
++
++	/* Read the ID codes */
++	ret = spi_nor_flash_query(&(imx_sf->flash), idcode);
++	if (ret)
++		goto err_read_id;
++
++	for (i = 0; i < ARRAY_SIZE(imx_spi_flash_table); ++i) {
++		params = &imx_spi_flash_table[i];
++		if (params->idcode1 == idcode[1])
++			break;
++	}
++
++	if (i == ARRAY_SIZE(imx_spi_flash_table)) {
++		debug("SF: Unsupported DataFlash ID %02x\n",
++				idcode[1]);
++
++		goto err_invalid_dev;
++	}
++
++	imx_sf->params = params;
++
++	imx_sf->flash.name = params->name;
++	imx_sf->flash.size = params->device_size;
++
++	imx_sf->flash.read  = spi_nor_flash_read;
++	imx_sf->flash.write = spi_nor_flash_write;
++	imx_sf->flash.erase = spi_nor_flash_erase;
++
++	debug("SF: Detected %s with block size %lu, "
++			"block count %lu, total %u bytes\n",
++			params->name,
++			params->block_size,
++			params->block_count,
++			params->device_size);
++
++	return &(imx_sf->flash);
++
++err_read_id:
++	spi_release_bus(spi);
++err_invalid_dev:
++	if (imx_sf)
++		free(imx_sf);
++err_claim_bus:
++	if (spi)
++		spi_free_slave(spi);
++	return NULL;
++}
++
++void spi_flash_free(struct spi_flash *flash)
++{
++	struct imx_spi_flash *imx_sf = NULL;
++
++	if (!flash)
++		return;
++
++	imx_sf = to_imx_spi_flash(flash);
++
++	if (flash->spi) {
++		spi_free_slave(flash->spi);
++		flash->spi = NULL;
++	}
++
++	free(imx_sf);
++}
+diff -Nurp u-boot-2009.08/drivers/mtd/spi/Makefile u-boot-2009.08-patch/drivers/mtd/spi/Makefile
+--- u-boot-2009.08/drivers/mtd/spi/Makefile	2010-12-14 14:27:07.285614080 +0100
++++ u-boot-2009.08-patch/drivers/mtd/spi/Makefile	2010-12-03 19:20:54.437573627 +0100
+@@ -35,6 +35,7 @@ COBJS-$(CONFIG_SPI_M95XXX) += eeprom_m95
+ COBJS-$(CONFIG_SPI_FLASH_IMX)	+= imx_spi_nor.o
+ COBJS-$(CONFIG_SPI_FLASH_IMX_SST)	+= imx_spi_nor_sst.o
+ COBJS-$(CONFIG_SPI_FLASH_IMX_ATMEL)	+= imx_spi_nor_atmel.o
++COBJS-$(CONFIG_SPI_FLASH_IMX_MXIC)	+= imx_spi_nor_mxic.o
+ 
+ COBJS	:= $(COBJS-y)
+ SRCS	:= $(COBJS:.o=.c)
+diff -Nurp u-boot-2009.08/include/configs/mx51_bbg.h u-boot-2009.08-patch/include/configs/mx51_bbg.h
+--- u-boot-2009.08/include/configs/mx51_bbg.h	2010-12-14 14:27:08.500637207 +0100
++++ u-boot-2009.08-patch/include/configs/mx51_bbg.h	2010-12-03 19:32:52.788573281 +0100
+@@ -115,7 +115,8 @@
+  * */
+ #ifdef CONFIG_CMD_SF
+ 	#define CONFIG_FSL_SF		1
+-	#define CONFIG_SPI_FLASH_IMX_ATMEL	1
++//	#define CONFIG_SPI_FLASH_IMX_ATMEL	1
++	#define CONFIG_SPI_FLASH_IMX_MXIC	1
+ 	#define CONFIG_SPI_FLASH_CS	1
+ 	#define CONFIG_IMX_ECSPI
+ 	#define IMX_CSPI_VER_2_3        1
+@@ -132,12 +133,14 @@
+ 	#define CONFIG_MMC				1
+ 	#define CONFIG_GENERIC_MMC
+ 	#define CONFIG_IMX_MMC
+-	#define CONFIG_SYS_FSL_ESDHC_NUM	2
++	#define CONFIG_SYS_FSL_ESDHC_NUM	3			// Oliver 20101203
+ 	#define CONFIG_SYS_FSL_ESDHC_ADDR       0
+-	#define CONFIG_SYS_MMC_ENV_DEV	0
++//	#define	CONFIG_CMD_UPDATE_SPI
++//	#define CONFIG_SYS_MMC_ENV_DEV	1
++	#define CONFIG_SYS_MMC_ENV_DEV	2
+ 	#define CONFIG_DOS_PARTITION	1
+ 	#define CONFIG_CMD_FAT		1
+-	#define CONFIG_DYNAMIC_MMC_DEVNO
++//	#define CONFIG_DYNAMIC_MMC_DEVNO
+ #endif
+ 
+ /*
+@@ -169,6 +172,9 @@
+ #define CONFIG_FEC0_MIIBASE 	-1
+ 
+ 
++#define CONFIG_GET_EMEI_ADDR_FROM_IIM
++#define CONFIG_IIM_EMEI_ADDR_OFFSET      0x24
++
+ 
+ /* Enable below configure when supporting nand */
+ #define CONFIG_CMD_ENV
+@@ -181,19 +187,52 @@
+ 
+ #define CONFIG_LOADADDR		0x90800000	/* loadaddr env var */
+ 
++#ifndef CONFIG_CMD_UPDATE_SPI
++
+ #define	CONFIG_EXTRA_ENV_SETTINGS					\
+ 		"netdev=eth0\0"						\
+ 		"ethprime=FEC0\0"					\
+ 		"uboot_addr=0xa0000000\0"				\
+ 		"uboot=u-boot.bin\0"			\
+ 		"kernel=uImage\0"				\
+-		"bootargs_base=setenv bootargs console=ttymxc0,115200\0"\
++		"bootargs_base=setenv bootargs console=tty1 console=ttymxc0,115200\0"\
+ 		"bootargs_nfs=setenv bootargs ${bootargs} root=/dev/nfs "\
+ 			"ip=dhcp nfsroot=${serverip}:${nfsroot},v3,tcp\0"\
+-		"bootcmd=run bootcmd_net\0"				\
+-		"bootcmd_net=run bootargs_base bootargs_nfs; "		\
++		"bootcmd_net=run bootargs_base bootargs_nfs;"\
+ 			"tftpboot ${loadaddr} ${kernel}; bootm\0"	\
+ 		"load_uboot=tftpboot ${loadaddr} ${uboot}\0"		\
++		"bootargs_mmc=setenv bootargs ${bootargs} root=/dev/mmcblk0p1 "\
++			 "rootwait rootfstype=ext4\0"\
++		"bootcmd_mmc=run bootargs_base bootargs_mmc;"\
++			"mmc read 2 ${loadaddr} 0x800 0x1400;bootm\0"\
++		"bootcmd=run bootcmd_mmc\0"				
++#else
++
++#define	CONFIG_EXTRA_ENV_SETTINGS					\
++		"netdev=eth0\0"						\
++		"ethprime=FEC0\0"					\
++		"uboot_addr=0xa0000000\0"				\
++		"uboot=u-boot.bin\0"			\
++		"kernel=uImage\0"				\
++		"bootargs_base=setenv bootargs console=tty1 console=ttymxc0,115200\0"\
++		"ethaddr=00:04:9F:00:EA:CF\0"				\
++		"fec_addr=00:04:9F:00:EA:CF\0"				\
++		"bootargs_nfs=setenv bootargs ${bootargs} root=/dev/nfs "\
++			"ip=dhcp nfsroot=${serverip}:${nfsroot},v3,tcp\0"\
++		"bootcmd_net=run bootargs_base bootargs_nfs;"\
++			"tftpboot ${loadaddr} ${kernel}; bootm\0"	\
++		"load_uboot=tftpboot ${loadaddr} ${uboot}\0"		\
++		"bootargs_mmc=setenv bootargs ${bootargs} root=/dev/mmcblk1p1 "\
++			 "rootwait rootfstype=ext3\0"\
++		"bootcmd_mmc=run bootargs_base bootargs_mmc;"\
++			"mmc read 2 ${loadaddr} 0x800 0x1400;bootm\0"\
++		"bootcmd_flash_spi1=mmc read 1 ${loadaddr} 0x2002 0x1ffe;mmc write 2 ${loadaddr} 2 0x1ffe\0"\
++		"bootcmd_flash_spi2=sf probe 1;sf erase 0 0x400000;"\
++			"sf read ${loadaddr} 0 0x20000;mmc write 2 ${loadaddr} 0x600 0x100\0"\
++		"bootcmd_flash_spi3=mmc read 2 ${loadaddr} 0 0x2000;sf write ${loadaddr} 0 0x400000\0"\
++		"bootcmd_flash_spi=run bootcmd_flash_spi1;run bootcmd_flash_spi2;run bootcmd_flash_spi3;run bootcmd_mmc\0"\
++		"bootcmd=run bootcmd_flash_spi\0"		
++#endif
+ 
+ /*
+  * The MX51 3stack board seems to have a hardware "peculiarity" confirmed under
+@@ -211,7 +250,7 @@
+  * Miscellaneous configurable options
+  */
+ #define CONFIG_SYS_LONGHELP		/* undef to save memory */
+-#define CONFIG_SYS_PROMPT		"BBG U-Boot > "
++#define CONFIG_SYS_PROMPT		"eCAFE U-Boot > "
+ #define CONFIG_AUTO_COMPLETE
+ #define CONFIG_SYS_CBSIZE		256	/* Console I/O Buffer Size */
+ /* Print Buffer Size */
